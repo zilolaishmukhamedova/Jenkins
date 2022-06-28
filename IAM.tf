@@ -121,5 +121,35 @@ resource "aws_iam_account_password_policy" "strict" {
   require_uppercase_characters   = true
   require_symbols                = true
   allow_users_to_change_password = true
+  
+}
 
+#Create IAM role
+resource "aws_iam_role" "EC2-JENKINSROLE" {
+  name = "EC2-JENKINSROLE"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+}
+
+# Attach role to policy
+resource "aws_iam_role_policy_attachment" "EC2-role" {
+  role       = aws_iam_role.EC2-JENKINSROLE.name
+  policy_arn = "arn:aws:iam::432898149300:role/EC2-JENKINSROLE"
+}
+
+# Attach role an instance profile
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name       = "ec2_profile"
+  role       = aws_iam_role.EC2-JENKINSROLE.name
 }
