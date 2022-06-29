@@ -33,12 +33,12 @@ resource "aws_autoscaling_group" "web-scaling-rule" {
   lifecycle {
     create_before_destroy = true
   }
-   tag {
+  tag {
     key                 = "Name"
     value               = "web-tier"
     propagate_at_launch = "true"
   }
- tag {
+  tag {
     key                 = "lorem"
     value               = "ipsum"
     propagate_at_launch = false
@@ -46,7 +46,7 @@ resource "aws_autoscaling_group" "web-scaling-rule" {
 
 }
 resource "aws_lb_target_group" "ec2_target_group" {
-  name     = "web-target-group" 
+  name     = "web-target-group"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.main.id
@@ -66,7 +66,7 @@ resource "aws_autoscaling_attachment" "alb_asg_attach" {
   alb_target_group_arn   = aws_lb_target_group.ec2_target_group.arn
 }
 
-  resource "aws_autoscaling_policy" "web_policy_up" {
+resource "aws_autoscaling_policy" "web_policy_up" {
   name                   = "web_policy_up"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
@@ -87,7 +87,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu_alarm_up" {
     AutoScalingGroupName = aws_autoscaling_group.web-scaling-rule.name
   }
 
-alarm_description = "This metric monitor EC2 instance CPU utilization"
+  alarm_description = "This metric monitor EC2 instance CPU utilization"
   alarm_actions     = [aws_autoscaling_policy.web_policy_up.arn]
 }
 resource "aws_autoscaling_policy" "web_policy_down" {

@@ -117,13 +117,13 @@ resource "aws_autoscaling_group" "ec2_scaling_rule1" {
     create_before_destroy = true
   }
 
- 
+
   tag {
-     key                 = "Name"
-     value               = "app-tier"
+    key                 = "Name"
+    value               = "app-tier"
     propagate_at_launch = "true"
   }
-   tag {
+  tag {
     key                 = "lorem"
     value               = "ipsum"
     propagate_at_launch = false
@@ -163,7 +163,7 @@ resource "aws_autoscaling_attachment" "alb_asg_attach1" {
   alb_target_group_arn   = aws_lb_target_group.ec2_target_group1.arn
 }
 
-  resource "aws_autoscaling_policy" "app_policy_up" {
+resource "aws_autoscaling_policy" "app_policy_up" {
   name                   = "app_policy_up"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
@@ -184,7 +184,7 @@ resource "aws_cloudwatch_metric_alarm" "app_cpu_alarm_up" {
     AutoScalingGroupName = aws_autoscaling_group.ec2_scaling_rule1.name
   }
 
-alarm_description = "This metric monitor EC2 instance CPU utilization"
+  alarm_description = "This metric monitor EC2 instance CPU utilization"
   alarm_actions     = [aws_autoscaling_policy.app_policy_up.arn]
 }
 resource "aws_autoscaling_policy" "app_policy_down" {
