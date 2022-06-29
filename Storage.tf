@@ -1,79 +1,43 @@
 
 #Creating S3bucket
-resource "aws_s3_bucket" "purple" {
-  bucket = "purple"
-}
-resource "aws_s3_bucket_acl" "bucket_acl" {
-  bucket = aws_s3_bucket.bucket.id
+resource "aws_s3_bucket" "my-ggn-bucket" {
+  bucket = "my-green-bucket"
   acl    = "private"
-}
-resource "aws_s3_bucket_lifecycle_configuration" "bucket-config" {
-  bucket = aws_s3_bucket.bucket.bucket
-  rule {
-    id = "log"
+  lifecycle_rule {
+    id      = "my-greenn_quarterly_retention"
+    prefix  = "folder/"
+    enabled = true
+
     expiration {
       days = 90
     }
-    filter {
-      and {
-        prefix = "log/"
-        tags = {
-          rule      = "log"
-          autoclean = "true"
-        }
-      }
+  }
+  versioning {
+    enabled = true
+  }
+}
+
+
+
+resource "aws_s3_bucket" "my-ggn-glacier" {
+  bucket = "my-green-glacier"
+  acl    = "private"
+  lifecycle_rule {
+    id      = "my-green-glacier-fiveyears_retention"
+    prefix  = "folder/"
+    enabled = true
+
+    expiration {
+      days = 1825
     }
-    status = "Enabled"
+
     transition {
-      days          = 30
-      storage_class = "STANDARD_IA"
-    }
-    transition {
-      days          = 60
+      days          = 1
       storage_class = "GLACIER"
     }
   }
-  rule {
-    id = "tmp"
-    filter {
-      prefix = "tmp/"
-    }
-    expiration {
-      date = "2023-01-13T00:00:00Z"
-    }
-    status = "Enabled"
-  }
 }
 
-
-
-versioning_configuration {
-  status = "Enabled"
-}
-
-resource "aws_s3_bucket_lifecycle_configuration" "versioning-bucket-config" {
-  # Must have bucket versioning enabled first
-  depends_on = [aws_s3_bucket_versioning.versioning]
-  bucket     = aws_s3_bucket.versioning_bucket.bucket
-  rule {
-    id = "config"
-    filter {
-      prefix = "config/"
-    }
-    noncurrent_version_expiration {
-      noncurrent_days = 90
-    }
-    noncurrent_version_transition {
-      noncurrent_days = 30
-      storage_class   = "STANDARD_IA"
-    }
-    noncurrent_version_transition {
-      noncurrent_days = 60
-      storage_class   = "GLACIER"
-    }
-    status = "Enabled"
-  }
-}
 
 
 
