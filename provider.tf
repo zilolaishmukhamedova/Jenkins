@@ -4,6 +4,6 @@ provider "aws" {
 }
 
 #provider "aws" {
- # alias  = "europe"
-  #region = "eu-central-1"
+# alias  = "europe"
+#region = "eu-central-1"
 #}

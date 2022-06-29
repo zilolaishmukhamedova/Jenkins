@@ -1,10 +1,10 @@
 
 #Creating S3bucket
 resource "aws_s3_bucket" "my-ggn-bucket" {
-  bucket = "my-ggn-bucket"
+  bucket = "my-green-bucket"
   acl    = "private"
   lifecycle_rule {
-    id      = "my-ggn_quarterly_retention"
+    id      = "my-greenn_quarterly_retention"
     prefix  = "folder/"
     enabled = true
 
@@ -20,10 +20,10 @@ resource "aws_s3_bucket" "my-ggn-bucket" {
 
 
 resource "aws_s3_bucket" "my-ggn-glacier" {
-  bucket = "my-ggn-glacier"
+  bucket = "my-green-glacier"
   acl    = "private"
   lifecycle_rule {
-    id      = "my-ggn-glacier-fiveyears_retention"
+    id      = "my-green-glacier-fiveyears_retention"
     prefix  = "folder/"
     enabled = true
 
