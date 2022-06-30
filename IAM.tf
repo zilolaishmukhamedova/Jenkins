@@ -142,14 +142,14 @@ resource "aws_iam_role" "EC2-role" {
   })
 }
 
-# Attach role to policy
-resource "aws_iam_role_policy_attachment" "EC2-role" {
-  role       = aws_iam_role.EC2-role.name
-  policy_arn = "arn:aws:iam::432898149300:role/EC2-JENKINSROLE"
-}
+ /* # Attach role to policy
+ resource "aws_iam_role_policy_attachment" "EC2-role" {
+   role       = aws_iam_role.EC2-role.name
+   policy_arn = "arn:aws:iam::432898149300:role/EC2-role"
+ } */
 
-# Attach role an instance profile
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2_profile"
-  role = aws_iam_role.EC2-role.name
-}
+  # Attach role to an instance profile
+  resource "aws_iam_instance_profile" "bastion_profile" {
+    name = "bastion_profile"
+    role = aws_iam_role.EC2-role.name
+  }
