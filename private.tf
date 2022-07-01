@@ -4,7 +4,7 @@ resource "aws_instance" "private" {
   instance_type               = "t2.micro"
   vpc_security_group_ids      = [aws_security_group.private.id]
   associate_public_ip_address = true
-  key_name                    = "private"
+  key_name                    = "ggreen-key"
   tags = {
     "Name" = "Private-EC2"
   }

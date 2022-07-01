@@ -2,7 +2,7 @@
 
 
 # Create Security Group for the Web Server
-# terraform aws create security group
+
 resource "aws_security_group" "webserver-security-group2" {
   name        = "Web Server Security Group"
   description = "Enable HTTP/HTTPS access on Port 80/443 via ALB and SSH access on Port 22 via SSH SG"

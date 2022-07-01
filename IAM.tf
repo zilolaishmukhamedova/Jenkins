@@ -1,4 +1,5 @@
 # Create SysAdmin Group and Users
+
 resource "aws_iam_group" "SysAdmin" {
   name = "SysAdmin"
 }
@@ -12,6 +13,7 @@ resource "aws_iam_user" "Sysadmin2" {
 }
 
 # Asign Sysadmin users to SysAdmin Group
+
 resource "aws_iam_group_membership" "assignment1" {
   name = "sysadmin-membership"
 
@@ -43,6 +45,7 @@ resource "aws_iam_user" "dbadmin2" {
 }
 
 # Asign dbadmin users to DBAdmin Group
+
 resource "aws_iam_group_membership" "assignment2" {
   name = "dbadmin-membership"
 
@@ -55,12 +58,14 @@ resource "aws_iam_group_membership" "assignment2" {
 }
 
 # Attaching policy to DBAdmin Group
+
 resource "aws_iam_group_policy_attachment" "database" {
   group      = aws_iam_group.DBAdmin.name
   policy_arn = "arn:aws:iam::aws:policy/job-function/DatabaseAdministrator"
 }
 
 # Create Monitor Group and Minitorusers
+
 resource "aws_iam_group" "Monitor" {
   name = "Monitor"
 }
@@ -82,6 +87,7 @@ resource "aws_iam_user" "monitoruser4" {
 }
 
 # Asign monitorusers to Monitor Group
+
 resource "aws_iam_group_membership" "assignment3" {
   name = "monitor-membership"
 
@@ -96,6 +102,7 @@ resource "aws_iam_group_membership" "assignment3" {
 }
 
 # Attaching policies to Monitor Group
+
 resource "aws_iam_group_policy_attachment" "ec2" {
   group      = aws_iam_group.Monitor.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
@@ -112,6 +119,7 @@ resource "aws_iam_group_policy_attachment" "RDS" {
 }
 
 # Create Password Policy for users
+
 resource "aws_iam_account_password_policy" "strict" {
   minimum_password_length        = 8
   max_password_age               = 90
@@ -125,6 +133,7 @@ resource "aws_iam_account_password_policy" "strict" {
 }
 
 #Create IAM role
+
 resource "aws_iam_role" "EC2-JENKINSROLE" {
   name = "EC2-JENKINSROLE"
   assume_role_policy = jsonencode({
@@ -143,12 +152,14 @@ resource "aws_iam_role" "EC2-JENKINSROLE" {
 }
 
 # Attach role to policy
+
 resource "aws_iam_role_policy_attachment" "EC2-role" {
   role       = aws_iam_role.EC2-JENKINSROLE.name
   policy_arn = "arn:aws:iam::432898149300:role/EC2-JENKINSROLE"
 }
 
 # Attach role an instance profile
+
 resource "aws_iam_instance_profile" "ec2_profile" {
   name       = "ec2_profile"
   role       = aws_iam_role.EC2-JENKINSROLE.name

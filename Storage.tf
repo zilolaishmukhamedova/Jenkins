@@ -1,7 +1,7 @@
 
 #Creating S3bucket
-resource "aws_s3_bucket" "my-ggn-bucket" {
-  bucket = "my-ggn-bucket"
+resource "aws_s3_bucket" "ngs-ggn-bucket001" {
+  bucket = "ngs-ggn-bucket001"
   acl    = "private"
   lifecycle_rule {
     id      = "my-ggn_quarterly_retention"
@@ -19,8 +19,8 @@ resource "aws_s3_bucket" "my-ggn-bucket" {
 
 
 
-resource "aws_s3_bucket" "my-ggn-glacier" {
-  bucket = "my-ggn-glacier"
+resource "aws_s3_bucket" "ngs-gn-glacier001" {
+  bucket = "ngs-ggn-glacier001"
   acl    = "private"
   lifecycle_rule {
     id      = "my-ggn-glacier-fiveyears_retention"
