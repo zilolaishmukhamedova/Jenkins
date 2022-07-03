@@ -4,7 +4,12 @@ resource "aws_instance" "bastion" {
   instance_type               = "t2.micro"
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   associate_public_ip_address = true
+<<<<<<< HEAD
   key_name                    = "ggreen-key"
+=======
+  iam_instance_profile = "${aws_iam_instance_profile.bastion_profile.name}"
+  key_name                    = "gogreen"
+>>>>>>> b405c469abc17f429a4e585b7ff5769c17657fad
   tags = {
     "Name" = "Bastion-EC2"
   }
@@ -33,6 +38,13 @@ resource "aws_security_group" "bastion" {
     to_port     = 22
     protocol    = "tcp"
   }
+ingress {
+    description = "Custom TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -44,6 +56,7 @@ resource "aws_security_group" "bastion" {
     create_before_destroy = true
   }
 }
+
 // Generate the SSH keypair that we’ll use to configure the EC2 instance.
 // After that, write the private key to a local file and upload the public key to AWS
 # resource "tls_private_key" "ssh" {

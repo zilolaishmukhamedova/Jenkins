@@ -1,10 +1,15 @@
 
 #Creating S3bucket
+<<<<<<< HEAD
 resource "aws_s3_bucket" "ngs-ggn-bucket001" {
   bucket = "ngs-ggn-bucket001"
+=======
+resource "aws_s3_bucket" "my-ggn-bucket" {
+  bucket = "my-green-bucket"
+>>>>>>> b405c469abc17f429a4e585b7ff5769c17657fad
   acl    = "private"
   lifecycle_rule {
-    id      = "my-ggn_quarterly_retention"
+    id      = "my-greenn_quarterly_retention"
     prefix  = "folder/"
     enabled = true
 
@@ -19,11 +24,16 @@ resource "aws_s3_bucket" "ngs-ggn-bucket001" {
 
 
 
+<<<<<<< HEAD
 resource "aws_s3_bucket" "ngs-gn-glacier001" {
   bucket = "ngs-ggn-glacier001"
+=======
+resource "aws_s3_bucket" "my-ggn-glacier" {
+  bucket = "my-green-glacier"
+
   acl    = "private"
   lifecycle_rule {
-    id      = "my-ggn-glacier-fiveyears_retention"
+    id      = "my-green-glacier-fiveyears_retention"
     prefix  = "folder/"
     enabled = true
 
