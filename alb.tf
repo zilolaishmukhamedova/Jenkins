@@ -108,7 +108,7 @@ resource "aws_launch_configuration" "ec2_launcher" {
 
 resource "aws_autoscaling_group" "ec2_scaling_rule1" {
   name                 = "ec2-scaling"
-  vpc_zone_identifier  = [aws_subnet.private_subnet1a.id, aws_subnet.private_subnet2c.id]
+  vpc_zone_identifier  = [aws_subnet.private_subnet1a.id, aws_subnet.private_subnet1a.id]
   launch_configuration = aws_launch_configuration.ec2_launcher.name
   desired_capacity     = 2
   max_size             = 5
@@ -135,7 +135,7 @@ resource "aws_lb" "app" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.elb_http.id]
-  subnets            = [aws_subnet.public_subnet1a.id, aws_subnet.public_subnet2c.id]
+  subnets            = [aws_subnet.public_subnet1a.id, aws_subnet.public_subnet1a.id]
   tags = {
     "Name" = "APP"
   }
